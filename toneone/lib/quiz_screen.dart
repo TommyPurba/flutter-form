@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toneone/answer_button.dart';
+import 'package:toneone/data/question.dart';
 
 
 class QuizScreen extends StatefulWidget{
@@ -13,6 +14,7 @@ class QuizScreen extends StatefulWidget{
 
 
 class _QuizScreenTemplate extends State<QuizScreen>{
+  final questionData = questions[0];
   @override
   Widget build(context){
     return SizedBox(
@@ -20,16 +22,16 @@ class _QuizScreenTemplate extends State<QuizScreen>{
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
-            'Question....',
+           Text(
+            questionData.text,
             style: TextStyle(
               color: Colors.white
             ),
           ),
           const SizedBox(height: 30,),
-        AnswerButton(answerText: "answerText", tapIn: (){}),
-        AnswerButton(answerText: "answerText", tapIn: (){}),
-        AnswerButton(answerText: "answerText", tapIn: (){}),
+        AnswerButton(answerText: questionData.question[0], tapIn: (){}),
+        AnswerButton(answerText: questionData.question[1], tapIn: (){}),
+        AnswerButton(answerText: questionData.question[2], tapIn: (){}),
          
         ],
       ),

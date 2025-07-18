@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:toneone/data/question.dart';
 import 'package:toneone/quiz_screen.dart';
+import 'package:toneone/results_screen.dart';
 import 'package:toneone/start_screen.dart';
 
-class Quiz extends StatefulWidget{
-  const Quiz ({super.key});
+class Quiz extends StatefulWidget {
+  const Quiz({super.key});
 
-@override
+  @override
   State<Quiz> createState() {
-  
-  return _QuizTemplate();
+    return _QuizTemplate();
   }
-
 }
 
 //cara pertama
@@ -18,7 +18,6 @@ class Quiz extends StatefulWidget{
 // class _QuizTemplate extends State<Quiz>{
 
 //   Widget ? activeScreen;
-
 
 //   @override
 //   void initState() {
@@ -52,37 +51,54 @@ class Quiz extends StatefulWidget{
 // }
 
 //cara kedua
-class _QuizTemplate extends State<Quiz>{
-final List<String> selectAnswer = [];
+class _QuizTemplate extends State<Quiz> {
+  List<String> selectAnswer = [];
   var activeScreen = "activeScreen";
 
-
-
-void swicthScreen (){
+  void swicthScreen() {
     setState(() {
-       activeScreen = "Quizscreen";
+      activeScreen = "Quizscreen";
     });
   }
 
-void answerSelected (String answer){
-selectAnswer.add(answer);
-}
+  void answerSelected(String answer) {
+    selectAnswer.add(answer);
+
+    if (selectAnswer.length == questions.length) {
+      selectAnswer = [];
+      setState(() {
+        activeScreen = "resultScreen";
+      });
+    }
+  }
 
   @override
-  Widget build(context){
+  Widget build(context) {
+    Widget screenWidget = StartScreen(swicthScreen);
+      if(activeScreen == 'Quizscreen'){
+        screenWidget =  QuizScreen(onSelectAnswer: answerSelected,);
+      }
+      if(activeScreen == 'resultScreen'){
+        screenWidget =  ResultsScreen(chosenSelect: selectAnswer,);
+      }
+      
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Color.fromRGBO(100, 29, 137, 1),Color.fromRGBO(211, 19, 233, 0.274)
+            Color.fromRGBO(100, 29, 137, 1),
+            Color.fromRGBO(211, 19, 233, 0.274),
           ],
           begin: Alignment.topCenter,
-          end: Alignment.bottomCenter
+          end: Alignment.bottomCenter,
         ),
       ),
       child: Center(
-        child: activeScreen == "activeScreen" ? StartScreen(swicthScreen): QuizScreen(onSelectAnswer: answerSelected,),
+        child: screenWidget,
+            // activeScreen == "activeScreen"
+            //     ? StartScreen(swicthScreen)
+            //     : QuizScreen(onSelectAnswer: answerSelected),
       ),
-      );
+    );
   }
 }

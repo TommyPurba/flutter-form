@@ -53,16 +53,20 @@ class Quiz extends StatefulWidget{
 
 //cara kedua
 class _QuizTemplate extends State<Quiz>{
-
+final List<String> selectAnswer = [];
   var activeScreen = "activeScreen";
 
 
 
-    void swicthScreen (){
+void swicthScreen (){
     setState(() {
        activeScreen = "Quizscreen";
     });
   }
+
+void answerSelected (String answer){
+selectAnswer.add(answer);
+}
 
   @override
   Widget build(context){
@@ -77,7 +81,7 @@ class _QuizTemplate extends State<Quiz>{
         ),
       ),
       child: Center(
-        child: activeScreen == "activeScreen" ? StartScreen(swicthScreen): QuizScreen(),
+        child: activeScreen == "activeScreen" ? StartScreen(swicthScreen): QuizScreen(onSelectAnswer: answerSelected,),
       ),
       );
   }

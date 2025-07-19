@@ -65,7 +65,7 @@ class _QuizTemplate extends State<Quiz> {
     selectAnswer.add(answer);
 
     if (selectAnswer.length == questions.length) {
-      selectAnswer = [];
+      
       setState(() {
         activeScreen = "resultScreen";
       });

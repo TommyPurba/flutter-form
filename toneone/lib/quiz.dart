@@ -57,13 +57,15 @@ class _QuizTemplate extends State<Quiz> {
 
   void swicthScreen() {
     setState(() {
+      selectAnswer=[];
+     
       activeScreen = "Quizscreen";
+     
     });
   }
 
   void answerSelected(String answer) {
     selectAnswer.add(answer);
-
     if (selectAnswer.length == questions.length) {
       
       setState(() {
@@ -79,7 +81,7 @@ class _QuizTemplate extends State<Quiz> {
         screenWidget =  QuizScreen(onSelectAnswer: answerSelected,);
       }
       if(activeScreen == 'resultScreen'){
-        screenWidget =  ResultsScreen(chosenSelect: selectAnswer,);
+        screenWidget =  ResultsScreen(chosenSelect: selectAnswer,swicthScreen);
       }
       
     return Container(
